@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Regression</title>
+    <script type="text/javascript" src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: 'sans-serif';
+            font-size: 16px;
+            padding: 0 20px;
+            display: flex;
+            line-height: 1.5;
+            justify-content: center;
+            margin-top: 100px;
+        }
+        hr {
+            border: 1px solid green;
+        }
+        h2 {
+            color: darkred;
+        }
+        h3 {
+            color: olivedrab;
+        }
+        .content {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .formula {
+            text-align: left;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <hr>
+        <h1>Linear Regression</h1>
+        <p class="formula">\(\ y = \beta_0 + \beta_1 x + \epsilon \)</p>
+        <ul>
+            <li>\(y\): Dependent variable (response/output).</li>
+            <li>\(x\): Independent variable (predictor/input).</li>
+            <li>\(\beta_0\): Intercept of the line (value of \(y\) when \(x = 0\)).</li>
+            <li>\(\beta_1\): Slope of the line (rate of change in \(y\) per unit change in \(x\)).</li>
+            <li>\(\epsilon\): Random error term capturing the variability not explained by the model.</li>
+        </ul>
+        <h2>Objective</h2>
+        <p>The objective is to find the line (or hyperplane) that minimizes the total residuals. However, simply minimizing the residuals is not enough because positive and negative residuals can cancel each other out. To address this, we minimize the Sum of Squared Residuals (SSR).</p>
+
+        <h2>Minimizing the Cost Function</h2>
+        <p>The residual for the \(i\)-th data point is defined as:</p>
+        <p class="formula">\(\ r_i = y_i - \hat{y}_i \)</p>
+        <ul>
+            <li>\(y_i\): Observed value of \(y\) for the \(i\)-th data point.</li>
+            <li>\(\hat{y}_i = \beta_0 + \beta_1 x_i\): Predicted value of \(y\) based on the model.</li>
+        </ul>
+        <h2>Sum of Squared Residuals (SSR)</h2>
+        <p>To find the best-fitting line, we minimize the sum of squared residuals:</p>
+        <p class="formula">\(\ SSR = \sum_{i=1}^n (y_i - \hat{y}_i)^2 \)</p>
+        <p class="formula">\(\ SSR = \sum_{i=1}^n \left(y_i - (\beta_0 + \beta_1 x_i)\right)^2 \)</p>
+        <p class="formula">\(\ SSR = \sum_{i=1}^n \left(y_i - \beta_0 - \beta_1 x_i\right)^2 \)</p>
+        <p>This is the cost function that linear regression seeks to minimize.</p>
+        <h2>How to Reduce SSR?</h2>
+        <p>We use partial derivatives to understand how the SSR changes as we adjust the parameters \( \beta_0 \) (intercept) and \( \beta_1 \) (slope). The goal is to find the values of \( \beta_0 \) and \( \beta_1 \) where the error (SSR) is minimized. To do this, we compute the partial derivatives:</p>
+        <p class="formula">\(\ \frac{\partial SSR}{\partial \beta_0}, \frac{\partial SSR}{\partial \beta_1} \)</p>
+        <p>These partial derivatives tell us:</p>
+        <ul>
+            <li>For \( \beta_0 \): "How much does SSR change if I adjust \( \beta_0 \), while keeping \( \beta_1 \) constant?"</li>
+            <li>For \( \beta_1 \): "How much does SSR change if I adjust \( \beta_1 \), while keeping \( \beta_0 \) constant?"</li>
+        </ul>
+
+        <h2>Partial Derivative with Respect to \( \beta_0 \)</h2>
+        <p class="formula">\(\ \frac{\partial}{\partial \beta_0} (y_i - \beta_0 - \beta_1 x_i)^2 \)</p>
+        <p class="formula">\(\ \frac{\partial}{\partial \beta_0} (z^2) = 2z \cdot \frac{\partial z}{\partial \beta_0} \)</p>
+        <p>where: \( z = y_i - \beta_0 - \beta_1 x_i \)</p>
+        <p>Now, take the derivative of the term inside the parentheses \( (y_i - \beta_0 - \beta_1 x_i) \) with respect to \( \beta_0 \):</p>
+        <p class="formula">\(\ \frac{\partial}{\partial \beta_0} (y_i - \beta_0 - \beta_1 x_i) = -1 \)</p>
+        <p>At the end, we get:</p>
+        <p class="formula">\(\ \frac{\partial}{\partial \beta_0} (y_i - \beta_0 - \beta_1 x_i)^2 = -2(y_i - \beta_0 - \beta_1 x_i) \)</p>
+        <p>Since \( SSR \) sums over all \( n \) points, the total derivative of \( SSR \) with respect to \( \beta_0 \) is:</p>
+        <p class="formula">\(\ \frac{\partial SSR}{\partial \beta_0} = -2 \sum_{i=1}^n (y_i - \beta_0 - \beta_1 x_i) \)</p>
+
+        <h2>Partial Derivative with Respect to \( \beta_1 \)</h2>
+        <p class="formula">\(\ \frac{\partial}{\partial \beta_1} (y_i - \beta_0 - \beta_1 x_i)^2 \)</p>
+        <p class="formula">\(\ \frac{\partial}{\partial \beta_1} (z^2) = 2z \cdot \frac{\partial z}{\partial \beta_1} \)</p>
+        <p>where: \( z = y_i - \beta_0 - \beta_1 x_i \)</p>
+        <p>Now, take the derivative of the term inside the parentheses \( (y_i - \beta_0 - \beta_1 x_i) \) with respect to \( \beta_1 \):</p>
+        <p class="formula">\(\ \frac{\partial}{\partial \beta_1} (y_i - \beta_0 - \beta_1 x_i) = -x_i \)</p>
+        <p>At the end, we get:</p>
+        <p class="formula">\(\ \frac{\partial}{\partial \beta_1} (y_i - \beta_0 - \beta_1 x_i)^2 = -2x_i(y_i - \beta_0 - \beta_1 x_i) \)</p>
+        <p>Since \( SSR \) sums over all \( n \) points, the total derivative of \( SSR \) with respect to \( \beta_1 \) is:</p>
+        <p class="formula">\(\ \frac{\partial SSR}{\partial \beta_1} = -2 \sum_{i=1}^n x_i(y_i - \beta_0 - \beta_1 x_i) \)</p>
+
+        <h2>Setting Derivatives to Zero</h2>
+        <p>At the minimum SSR, the derivatives are zero because this is where the "slope" of SSR with respect to both parameters becomes flat. Mathematically, setting the derivatives to zero gives us a system of two equations. Solving these simultaneously provides the optimal values of \( \beta_0 \) and \( \beta_1 \).</p>
+        <h2>Solving for \( \beta_0 \)</h2>
+        <p class="formula">\( -2 \sum_{i=1}^n (y_i - \beta_0 - \beta_1 x_i) = 0 \)</p>
+        <p class="formula">\( \sum_{i=1}^n (y_i - \beta_0 - \beta_1 x_i) = 0 \)</p>
+        <p class="formula">\( \sum_{i=1}^n y_i - \sum_{i=1}^n \beta_0 - \sum_{i=1}^n \beta_1 x_i = 0 \)</p>        
+        <p class="formula"> \( \sum_{i=1}^n y_i = n \beta_0 + \beta_1 \sum_{i=1}^n x_i \)</p>
+        <p>This is the first equation.</p>
+        <h2>Solving for \( \beta_1 \)</h2>
+        <p class="formula">\( -2 \sum_{i=1}^n x_i (y_i - \beta_0 - \beta_1 x_i) = 0 \)</p>
+        <p class="formula">\( \sum_{i=1}^n x_i (y_i - \beta_0 - \beta_1 x_i) = 0 \)</p>
+        <p class="formula">\( \sum_{i=1}^n x_i y_i - \beta_0 \sum_{i=1}^n x_i - \beta_1 \sum_{i=1}^n x_i^2 = 0 \)</p>
+        <p class="formula">\( \sum_{i=1}^n x_i y_i = \beta_0 \sum_{i=1}^n x_i + \beta_1 \sum_{i=1}^n x_i^2 \)</p>
+        <p>This is the second equation.</p>
+
+        <h2>Solve for \( \beta_0 \) in terms of \( \beta_1 \) from Equation 1</h2>
+        <p class="formula">\( \sum_{i=1}^n y_i = n \beta_0 + \beta_1 \sum_{i=1}^n x_i \)</p>
+        <p class="formula">\( n \beta_0 = \sum_{i=1}^n y_i - \beta_1 \sum_{i=1}^n x_i \)</p>
+        <p class="formula">\( \beta_0 = \frac{1}{n} \left( \sum_{i=1}^n y_i - \beta_1 \sum_{i=1}^n x_i \right) \)</p>
+        <p>This is the third equation.</p>
+        <h2>Substitute \( \beta_0 \) from Equation 3 into Equation 2</h2>
+        <p class="formula">\( \sum_{i=1}^n x_i y_i = \beta_0 \sum_{i=1}^n x_i + \beta_1 \sum_{i=1}^n x_i^2 \)</p>
+        <p class="formula">\( \sum_{i=1}^n x_i y_i = \left( \frac{1}{n} \left( \sum_{i=1}^n y_i - \beta_1 \sum_{i=1}^n x_i \right) \right) \sum_{i=1}^n x_i + \beta_1 \sum_{i=1}^n x_i^2 \)</p>
+        <p>Now, simplify the expression.</p>
+        <p class="formula">\( \sum_{i=1}^n x_i y_i = \frac{1}{n} \left( \sum_{i=1}^n y_i \sum_{i=1}^n x_i \right) - \beta_1 \frac{1}{n} \left( \sum_{i=1}^n x_i^2 \right) + \beta_1 \sum_{i=1}^n x_i^2 \)
+        <p>Now, collect like terms involving \( \beta_1 \):</p>
+        <p class="formula">\( \sum_{i=1}^n x_i y_i = \frac{1}{n} \left( \sum_{i=1}^n y_i \sum_{i=1}^n x_i \right) + \beta_1 \left( \sum_{i=1}^n x_i^2 - \frac{1}{n} \sum_{i=1}^n x_i^2 \right) \)</p>
+        <h2>Solve for \( \beta_1 \)</h2>
+        <p class="formula" style="font-size: 30px; line-height: 1.7;">\( \beta_1 = \frac{ \sum_{i=1}^n x_i y_i - \frac{1}{n} (\sum_{i=1}^n x_i \sum_{i=1}^n y_i) }{ \sum_{i=1}^n x_i^2 - \frac{1}{n} (\sum_{i=1}^n x_i)^2 } \)</p>
+        <p>This is the final equation.</p>
+        <h2>Substitute \( \beta_1 \) into Equation 3 to solve for \( \beta_0 \)</h2>
+        <p class="formula">\( \beta_0 = \frac{1}{n} \left( \sum_{i=1}^n y_i - \beta_1 \sum_{i=1}^n x_i \right) \)</p>
+        
+        
+        <hr>
+        <h2>1. Matrix Representation of the Model</h2>
+        <p>The system of equations for \(n\) data points looks like this:</p>
+        <p class="formula">\( y_1 = \beta_0 + \beta_1 x_1 + \epsilon_1 \)</p>
+        <p class="formula">\( y_2 = \beta_0 + \beta_1 x_2 + \epsilon_2 \)</p>
+        <p class="formula">\( \vdots \)</p>
+        <p class="formula">\( y_n = \beta_0 + \beta_1 x_n + \epsilon_n \)</p>
+
+        <p>This can be written in matrix form as:</p>
+        <p class="formula">\( \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix} = \begin{bmatrix} \beta_0 + \beta_1 x_1 + \epsilon_1 \\ \beta_0 + \beta_1 x_2 + \epsilon_2 \\ \vdots \\ \beta_0 + \beta_1 x_n + \epsilon_n \end{bmatrix} \)</p>
+        <p>Expanding this, we get:</p>
+        <p class="formula">\( \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix} = \begin{bmatrix} \beta_0 + \beta_1 x_1 \\ \beta_0 + \beta_1 x_2 \\ \vdots \\ \beta_0 + \beta_1 x_n \end{bmatrix} + \begin{bmatrix} \epsilon_1 \\ \epsilon_2 \\ \vdots \\ \epsilon_n \end{bmatrix} \)</p>
+        <p class="formula">\( \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix} = \begin{bmatrix} 1 & x_1 \\ 1 & x_2 \\ \vdots & \vdots \\ 1 & x_n \end{bmatrix} \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} + \begin{bmatrix} \epsilon_1 \\ \epsilon_2 \\ \vdots \\ \epsilon_n \end{bmatrix} \)</p>
+
+        <p>Finally, the matrix form of the system of equations is:</p>
+        <p class="formula">\( y = X \beta + \epsilon \)</p>
+
+        <h3>Design Matrix \( X \)</h3>
+        <p class="formula">\( X = \begin{bmatrix} 1 & x_1 \\ 1 & x_2 \\ \vdots & \vdots \\ 1 & x_n \end{bmatrix} \)</p>
+        <p>The design matrix \( X \) is a matrix that contains the feature values \( x_i \) and a column of ones for the intercept \( \beta_0 \). The first column is filled with ones, representing the constant term \( \beta_0 \) (the intercept). The second column contains the feature values \( x_i \) for each data point. Thus, the matrix \( X \) has dimensions \( n \times 2 \), where \( n \) is the number of data points and 2 represents the two parameters \( \beta_0 \) and \( \beta_1 \).</p>
+
+        <h3>Parameter Vector \( \beta \)</h3>
+        <p class="formula">\( \beta = \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} \)</p>
+        <p>The parameter vector \( \beta \) contains the coefficients \( \beta_0 \) and \( \beta_1 \) (the parameters we are trying to estimate). This is a \( 2 \times 1 \) column vector, where the first element is \( \beta_0 \) (intercept) and the second element is \( \beta_1 \) (slope).</p>
+
+        <h3>Error Vector \( \epsilon \)</h3>
+        <p class="formula">\( \epsilon = \begin{bmatrix} \epsilon_1 \\ \epsilon_2 \\ \vdots \\ \epsilon_n \end{bmatrix} \)</p>
+        <p>The error vector \( \epsilon \) contains the residuals (errors) for each data point. This is an \( n \times 1 \) column vector where each element corresponds to the error \( \epsilon_i \) for each data point.</p>
+
+        <h3>Observed Values \( y \)</h3>
+        <p class="formula">\( y = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix} \)</p>
+        <p>The observed values \( y \) are the actual data points you have. This is also an \( n \times 1 \) column vector, where each element corresponds to the observed value \( y_i \).</p>
+
+        <h2>Minimizing the Sum of Squared Residuals (SSR)</h2>
+        <p class="formula">\(\ \text{SSR} = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 \)</p>
+        <p class="formula">\(\ \hat{y}_i = \beta_0 + \beta_1 x_i \)</p>
+        <p>In matrix form, the predicted values \( \hat{y} \) are:</p>
+        <p class="formula">\(\ \hat{y} = X\beta \)</p>
+        <p class="formula">\(\ \text{SSR} = (y - X\beta)^T (y - X\beta) \)</p>
+
+        <p>Expanding this, we get:</p>
+        <p>\( SSR = y^T y - y^T X\beta - \beta^T X^T y + \beta^T X^T X \beta \)</p>
+
+        <h3>First term: \( y^T y \)</h3>
+        <p>This is simply the dot product of the vector \( y \) with itself, which gives the sum of the squares of the values in \( y \). It’s a scalar that represents the total squared sum of the observed values.</p>
+
+        <h3>Second term: \( y^T X\beta \)</h3>
+        <p>This term represents the product of \( y^T \) (the transpose of \( y \)) with \( X\beta \). Note that \( X\beta \) is the vector of predicted values based on the current \( \beta \). This term represents the sum of the product of \( y \) and the predicted values, which is a scalar. The main thing to notice is that this is a scalar quantity.</p>
+
+        <h3>Third term: \( \beta^T X^T y \)</h3>
+        <p>This is similar to the previous term, but note that we are now multiplying from the right side by \( X^T y \) instead of \( X\beta \). The reason we can rewrite the term \( y^T X\beta \) as \( \beta^T X^T y \) is because both are scalars, and the transpose of a scalar is just the scalar itself (i.e., scalar = scalar<sup>T</sup>).</p>
+
+        <p>Thus:</p>
+        <p>\( y^T X\beta = \beta^T X^T y \)</p>
+        <p>So, the second and third terms are equal, and we can simplify:</p>
+        <p>\( y^T X\beta + \beta^T X^T y = 2 \beta^T X^T y \)</p>
+        <p>Now, plugging these simplifications into the expression for SSR:</p>
+        <p>\( SSR = y^T y - 2 \beta^T X^T y + \beta^T X^T X \beta \)</p>
+
+        <h2>Differentiating SSR with Respect to \( \beta \)</h2>
+        <h3>First term: \( y^T y \)</h3>
+        <p>Since \( y^T y \) does not involve \( \beta \), its derivative with respect to \( \beta \) is zero:</p>
+        <p>\( \frac{\partial}{\partial \beta} \left( y^T y \right) = 0 \)</p>
+
+        <h3>Second Term</h3>
+        <p>Now, differentiate the second term. Recall that the derivative of a linear function \( \beta^T A \) with respect to \( \beta \) is simply \( A \), and the factor \( -2 \) remains unchanged:</p>
+        <p>\( \frac{\partial}{\partial \beta} \left( -2 \beta^T X^T y \right) = -2 X^T y \)</p>
+        <h3>Third Term</h3>
+        <p>For the third term, we need to use the derivative of a quadratic form \( \beta^T A \beta \) with respect to \( \beta \). The derivative of \( \beta^T A \beta \) (where \( A \) is a matrix) is \( 2A \beta \). In our case, \( A = X^T X \):</p>
+        <p>\( \frac{\partial}{\partial \beta} \left( \beta^T X^T X \beta \right) = 2 X^T X \beta \)</p>
+        
+        <p>Thus, <strong>the derivative of the SSR with respect to \( \beta \) is:</strong></p>
+        <p>\( \frac{\partial}{\partial \beta} \left( SSR \right) = 0 - 2 X^T y + 2 X^T X \beta \)</p>
+        <p>\( \frac{\partial}{\partial \beta} \left( SSR \right) = -2 X^T y + 2 X^T X \beta \)</p>
+        
+        <p><strong>To minimize SSR, we set the derivative equal to zero and solve for \( \beta \):</strong></p>
+        <p>\( -2 X^T y + 2 X^T X \beta = 0 \)</p>
+        <p>\( X^T X \beta = X^T y \)</p>
+        <p>\( \beta = (X^T X)^{-1} X^T y \)</p>
+        <p>This is the well known normal equation for linear regression, which we can solve to find the optimal values of \( \beta \).</p>
+        <hr>
+
+        <h2> Additional Notes</h2>
+        <h3>Comparing \( \beta_1 \) with Covariance-Variance Formula</h3>
+        <p class="formula" style="font-size: 25px; line-height: 1.7;">\( \beta_1 = \frac{Cov(X, Y)}{Var(X)} \)</p>
+        <p class="formula">\( Cov(X, Y) = \frac{1}{n} \sum_{i=1}^n x_i y_i - \overline{x} \overline{y} \)</p>
+        <p>where \( \overline{x} = \frac{1}{n} \sum_{i=1}^n x_i \) and \( \overline{y} = \frac{1}{n} \sum_{i=1}^n y_i \).</p>
+        <p class="formula">\( Var(X) = \frac{1}{n} \sum_{i=1}^n x_i^2 - \overline{x}^2 \)</p>
+        <p><strong>Substituting these into the formula for \( \beta_1 \):</strong></p>
+        <p class="formula" style="font-size: 25px; line-height: 1.7;">\( \beta_1 = \frac{\frac{1}{n} \sum_{i=1}^n x_i y_i - \overline{x} \overline{y}}{\frac{1}{n} \sum_{i=1}^n x_i^2 - \overline{x}^2} \)</p>
+        <p><strong>Express the means \( \overline{x} \) and \( \overline{y} \) in terms of summations:</strong></p>
+        <p class="formula" style="font-size: 25px; line-height: 1.7;">\( \beta_1 = \frac{\frac{1}{n} \sum_{i=1}^n x_i y_i - \left( \frac{1}{n} \sum_{i=1}^n x_i \right) \left( \frac{1}{n} \sum_{i=1}^n y_i \right)}{\frac{1}{n} \sum_{i=1}^n x_i^2 - \left( \frac{1}{n} \sum_{i=1}^n x_i \right)^2} \)</p>
+        <p>Simplifying, we get the same formula for \( \beta_1 \)</p>
+        <p class="formula" style="font-size: 25px; line-height: 1.7;">\( \beta_1 = \frac{\sum_{i=1}^n x_i y_i - \frac{1}{n} \sum_{i=1}^n x_i \sum_{i=1}^n y_i}{ \sum_{i=1}^n x_i^2 - \frac{1}{n} \left( \sum_{i=1}^n x_i \right)^2 } \)</p>
+        <hr>
+
+        <h3>How \( \hat{y} = X\beta \) becomes \( (y - X\beta)^T (y - X\beta) \) ?</h3>
+        <p>When we calculate SSR, we're essentially interested in the sum of the squared differences between the observed values \(y_i\) and the predicted values \(\hat{y}_i\).</p>
+        <p>For each data point, the residual is given by \( \epsilon_i = y_i - \hat{y}_i \). The SSR is the sum of the squared residuals:</p>
+        <p>SSR = \(\sum_{i=1}^{n} \epsilon_i^2 = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2\)</p>
+        <p>Now, to compactly express this in matrix form, we represent the residuals as a vector \( \epsilon \):</p>
+        <p>\( \epsilon = \begin{bmatrix} \epsilon_1 \\ \epsilon_2 \\ \vdots \\ \epsilon_n \end{bmatrix} = \begin{bmatrix} y_1 - \hat{y}_1 \\ y_2 - \hat{y}_2 \\ \vdots \\ y_n - \hat{y}_n \end{bmatrix} = y - X\beta \)</p>
+        <p>Where:</p>
+        <ul>
+            <li>\( y \) is the vector of observed values \( \begin{bmatrix} y_1, y_2, \dots, y_n \end{bmatrix}^T \)</li>
+            <li>\( X\beta \) is the vector of predicted values \( \begin{bmatrix} \hat{y}_1, \hat{y}_2, \dots, \hat{y}_n \end{bmatrix}^T \)</li>
+        </ul>
+
+        <p>Now, <strong>its important to note that the operation of squaring each element of a vector and summing them up is exactly the dot product of the vector with itself.</strong></p>
+        <p>\( \epsilon^T \epsilon = \sum_{i=1}^{n} \epsilon_i^2 \)</p>
+        <p>This is precisely the sum of the squared residuals, which is the definition of SSR.</p>
+
+        <p>So we can write :</p>
+        <p>\( SSR = \sum_{i=1}^{n} \epsilon_i^2 = \epsilon^T \epsilon = (y - X\beta)^T (y - X\beta) \)</p>
+        <p>We're just taking the dot product of the residual vector \( \epsilon \) with itself, which is a more compact and convenient mathematical representation of summing the squared differences.</p>
+        <hr>
+
+
+
+
+        
+    </div>
+
+</body>
+</html>
