@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter Template</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: white;
+            color: #000000;
+            line-height: 1.7;
+            padding: 16px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            margin: 32px 0;
+            color: #000000;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 24px 0 16px 0;
+            color: #2E7D32;
+        }
+
+        h3 {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 0 0 16px 0;
+            color: #000000;
+        }
+
+        p {
+            font-size: 15px;
+            margin-bottom: 16px;
+            color: #000000;
+        }
+
+        hr {
+            height: 2px;
+            background-color: #4CAF50;
+            margin: 24px 0;
+            border: none;
+            opacity: 0.3;
+        }
+
+        pre {
+            background-color: #f8f8f8;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        footer {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 24px;
+            margin-top: 32px;
+            border-radius: 8px;
+        }
+
+        address {
+            font-style: normal;
+            opacity: 0.9;
+        }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 600px) {
+            body {
+                padding: 8px;
+            }
+
+            .container {
+                padding: 8px;
+            }
+
+            h1 {
+                font-size: 28px;
+                margin: 24px 0;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            h3 {
+                font-size: 18px;
+            }
+
+            h4 {
+                font-size: 14px;
+            }
+
+            pre {
+                font-size: 12px;
+                padding: 12px;
+            }
+        }
+
+        .algorithm {
+            margin-bottom: 32px;
+        }
+
+        pre {
+            margin-top: 12px;
+        }
+
+        .algo-name {
+            font-weight: bold;
+            color: #000000;
+            display: inline;
+        }
+
+        .pseudo-code {
+            list-style-position: inside;
+            margin: 16px 0;
+            padding: 0;
+        }
+
+        .pseudo-code li {
+            padding: 0;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: #f0f0f0;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .image-caption {
+            text-align: center;
+            font-style: italic;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .complexity-section {
+            margin: 24px 0;
+        }
+
+        .complexity-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        .complexity-table th {
+            background-color: #f5f5f5;
+            padding: 8px;
+            border: 1px solid #ddd;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .complexity-table td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .complexity-table td:first-child {
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .complexity-description {
+            font-size: 14px;
+            color: #000000;
+            margin: 8px 0 24px 0;
+            font-style: italic;
+        }
+
+        h4 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 24px 0 16px 0;
+            color: #000000;
+            text-decoration: underline;
+            text-decoration-color: #2E7D32;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 1px;
+        }
+
+        .algorithm h3 {
+            color: #2E7D32;
+        }
+
+        .weekly-summary {
+            margin: 24px 0;
+        }
+
+        .weekly-summary h3 {
+            color: #2E7D32;
+            margin-bottom: 16px;
+        }
+
+        .weekly-summary p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Main Title -->
+        <h1>Py-Algo Weekly</h1>
+        
+        <!-- Welcome to this week's edition of PyAlgo Weekly! -->
+        <h2>Welcome to this week's edition of PyAlgo Weekly!</h2>
+        <p>In this issue, we explore some of the most commonly used search algorithms in Python. Searching through data is a fundamental task, and understanding how different algorithms approach this challenge can help you choose the right one for your projects.</p>
+        <hr>
+        
+        <!-- Some foreword about what we will see in this letter -->
+        <h2>We'll cover four key search algorithms:</h2>
+        <ol class="pseudo-code">
+            <li><span class="algo-name">Linear Search:</span> A simple and straightforward method, ideal for small datasets or unsorted arrays.</li>
+            <li><span class="algo-name">Binary Search:</span> An efficient search technique, but only applicable to sorted arrays.</li>
+            <li><span class="algo-name">Jump Search:</span> A compromise between linear and binary search, especially useful for large datasets.</li>
+            <li><span class="algo-name">Interpolation Search:</span> A sophisticated algorithm that assumes data is uniformly distributed, providing faster performance under ideal conditions.</li>
+        </ol>
+
+        <p>Whether you're a beginner looking to strengthen your foundations or an experienced developer refining your skills, this edition will help you understand how these search algorithms work and when to apply them.</p>
+        <hr>
+
+        <!-- Algorithm Sections -->
+        <section class="algorithm">
+            <h3>Linear Search</h3>
+            <p>Linear search is the simplest searching algorithm that checks every element in the array sequentially until a match is found or the end of array is reached. While it's not the most efficient, it works on both sorted and unsorted arrays and is practical for small datasets.</p>
+            
+            <h4>Pseudo Code</h4>
+            <ol class="pseudo-code">
+                <li>Start from the leftmost element of the array</li>
+                <li>Compare each element with the search value</li>
+                <li>If element matches, return its index</li>
+                <li>If element doesn't match, move to next element</li>
+                <li>If no match is found, return -1</li>
+            </ol>
+
+            <h4>Linear Search Algorithm</h4>
+            <div class="image-placeholder">Linear Search Visualization Image</div>
+            <p class="image-caption">Visual representation of Linear Search checking each element sequentially</p>
+
+            <h4>Time and Space Complexity</h4>
+            <div class="complexity-section">
+                <table class="complexity-table">
+                    <tr>
+                        <th>Time</th>
+                        <th>Best</th>
+                        <th>Average</th>
+                        <th>Worst</th>
+                    </tr>
+                    <tr>
+                        <td>Complexity</td>
+                        <td>O(1)</td>
+                        <td>O(n)</td>
+                        <td>O(n)</td>
+                    </tr>
+                </table>
+                <p class="complexity-description">The time complexity demonstrates linear growth with input size, making it efficient for small datasets but less suitable for large ones.</p>
+
+                <table class="complexity-table">
+                    <tr>
+                        <th>Space</th>
+                        <th>Complexity</th>
+                    </tr>
+                    <tr>
+                        <td>Auxiliary</td>
+                        <td>O(1)</td>
+                    </tr>
+                </table>
+                <p class="complexity-description">The space complexity remains constant regardless of input size as it only uses a fixed amount of extra space.</p>
+            </div>
+        </section>
+        <hr>
+
+        <section class="algorithm">
+            <h3>Binary Search</h3>
+            <p>Binary search is an efficient algorithm that works on sorted arrays by repeatedly dividing the search interval in half. It compares the middle element with the target value to determine which half to continue searching.</p>
+            
+            <h4>Pseudo Code</h4>
+            <ol class="pseudo-code">
+                <li>Find the middle element of the array</li>
+                <li>If target equals middle element, return index</li>
+                <li>If target is greater, search right half</li>
+                <li>If target is smaller, search left half</li>
+                <li>Repeat until element is found or array exhausted</li>
+            </ol>
+
+            <h4>Binary Search Algorithm</h4>
+            <div class="image-placeholder">Binary Search Visualization Image</div>
+            <p class="image-caption">Visual representation of Binary Search dividing array in half</p>
+
+            <h4>Time and Space Complexity</h4>
+            <div class="complexity-section">
+                <table class="complexity-table">
+                    <tr>
+                        <th>Time</th>
+                        <th>Best</th>
+                        <th>Average</th>
+                        <th>Worst</th>
+                    </tr>
+                    <tr>
+                        <td>Complexity</td>
+                        <td>O(1)</td>
+                        <td>O(log n)</td>
+                        <td>O(log n)</td>
+                    </tr>
+                </table>
+                <p class="complexity-description">The time complexity demonstrates logarithmic growth with input size, making it efficient for sorted arrays.</p>
+
+                <table class="complexity-table">
+                    <tr>
+                        <th>Space</th>
+                        <th>Complexity</th>
+                    </tr>
+                    <tr>
+                        <td>Auxiliary</td>
+                        <td>O(1)</td>
+                    </tr>
+                </table>
+                <p class="complexity-description">The space complexity remains constant regardless of input size as it only uses a fixed amount of extra space.</p>
+            </div>
+        </section>
+        <hr>
+
+        <section class="algorithm">
+            <h3>Jump Search</h3>
+            <p>Jump search is a searching algorithm designed for sorted arrays that works by skipping a fixed number of elements and then performing a linear search. It's a good balance between linear and binary search algorithms.</p>
+            
+            <h4>Pseudo Code</h4>
+            <ol class="pseudo-code">
+                <li>Calculate jump size (typically √n)</li>
+                <li>Jump ahead by fixed steps</li>
+                <li>When element exceeds target, move back one step</li>
+                <li>Perform linear search in current block</li>
+                <li>Return index if found, else -1</li>
+            </ol>
+
+            <h4>Jump Search Algorithm</h4>
+            <div class="image-placeholder">Jump Search Visualization Image</div>
+            <p class="image-caption">Visual representation of Jump Search skipping blocks</p>
+
+            <h4>Time and Space Complexity</h4>
+            <div class="complexity-section">
+                <table class="complexity-table">
+                    <tr>
+                        <th>Time</th>
+                        <th>Best</th>
+                        <th>Average</th>
+                        <th>Worst</th>
+                    </tr>
+                    <tr>
+                        <td>Complexity</td>
+                        <td>O(1)</td>
+                        <td>O(√n)</td>
+                        <td>O(√n)</td>
+                    </tr>
+                </table>
+                <p class="complexity-description">The time complexity demonstrates linear growth with input size, making it efficient for sorted arrays.</p>
+
+                <table class="complexity-table">
+                    <tr>
+                        <th>Space</th>
+                        <th>Complexity</th>
+                    </tr>
+                    <tr>
+                        <td>Auxiliary</td>
+                        <td>O(1)</td>
+                    </tr>
+                </table>
+                <p class="complexity-description">The space complexity remains constant regardless of input size as it only uses a fixed amount of extra space.</p>
+            </div>
+        </section>
+        <hr>
+
+        <section class="algorithm">
+            <h3>Interpolation Search</h3>
+            <p>Interpolation search improves upon binary search by using the value of the target element to estimate its position. It works best on uniformly distributed sorted arrays, potentially achieving better performance than binary search.</p>
+            
+            <h4>Pseudo Code</h4>
+            <ol class="pseudo-code">
+                <li>Calculate probable position using interpolation formula</li>
+                <li>If target found at position, return index</li>
+                <li>If target is smaller, search lower range</li>
+                <li>If target is larger, search upper range</li>
+                <li>Repeat until found or range exhausted</li>
+            </ol>
+
+            <h4>Interpolation Search Algorithm</h4>
+            <div class="image-placeholder">Interpolation Search Visualization Image</div>
+            <p class="image-caption">Visual representation of Interpolation Search estimating position</p>
+
+            <h4>Time and Space Complexity</h4>
+            <div class="complexity-section">
+                <table class="complexity-table">
+                    <tr>
+                        <th>Time</th>
+                        <th>Best</th>
+                        <th>Average</th>
+                        <th>Worst</th>
+                    </tr>
+                    <tr>
+                        <td>Complexity</td>
+                        <td>O(1)</td>
+                        <td>O(log log n)</td>
+                        <td>O(n)</td>
+                    </tr>
+                </table>
+                <p class="complexity-description">The time complexity demonstrates logarithmic growth with input size, making it efficient for uniformly distributed sorted arrays.</p>
+
+                <table class="complexity-table">
+                    <tr>
+                        <th>Space</th>
+                        <th>Complexity</th>
+                    </tr>
+                    <tr>
+                        <td>Auxiliary</td>
+                        <td>O(1)</td>
+                    </tr>
+                </table>
+                <p class="complexity-description">The space complexity remains constant regardless of input size as it only uses a fixed amount of extra space.</p>
+            </div>
+        </section>
+        <hr>   
+
+        <!-- Weekly Summary -->
+        <section class="weekly-summary">
+            <h3>Weekly Summary</h3>
+            <p>In this week's edition, we've explored four powerful search algorithms, each designed for specific use cases:</p>
+            <ol class="pseudo-code">
+                <li><span class="algo-name">Linear Search:</span> Perfect for small datasets and unsorted arrays, offering straightforward implementation with O(n) complexity.</li>
+                <li><span class="algo-name">Binary Search:</span> Ideal for sorted arrays, providing efficient O(log n) search time through divide-and-conquer strategy.</li>
+                <li><span class="algo-name">Jump Search:</span> Balancing simplicity and efficiency with O(√n) complexity, great for medium-sized sorted arrays.</li>
+                <li><span class="algo-name">Interpolation Search:</span> Optimized for uniformly distributed sorted data, achieving O(log log n) in average cases.</li>
+            </ol>
+
+            <p>Next week, we'll dive into sorting algorithms and their practical implementations. Stay tuned!</p>
+        </section>
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <h3>Py-Algo Weekly</h3>
+            <p>A weekly newsletter for understanding Python Algorithms</p>
+            <address>
+                Dundee, Scotland<br>
+                contact@pyalgoweekly.com
+            </address>
+        </footer>
+    </div>
+</body>
+</html> 
